@@ -27,11 +27,6 @@
   },
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://docs.localops.co"
-    },
-    {
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://localops.co/blog"
@@ -40,10 +35,7 @@
   "navigation": [
     {
       "group": "🚀 Get Started",
-      "pages": [
-        "introduction",
-        "demo"
-      ]
+      "pages": ["introduction", "demo"]
     },
     {
       "group": "Essentials",
@@ -58,9 +50,7 @@
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "Endpoint Examples",
