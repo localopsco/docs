@@ -38,6 +38,13 @@
       "pages": ["introduction", "demo"]
     },
     {
+      "group": "Connecting Your Cloud",
+      "pages": [
+        "connecting-your-cloud/introduction",
+        "connecting-your-cloud/aws"
+      ]
+    },
+    {
       "group": "Essentials",
       "pages": [
         "essentials/markdown",
