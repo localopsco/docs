@@ -87,6 +87,24 @@
           ]
         },
         "bring-your-app/secrets",
+        {
+          "group": "Single Page Apps",
+          "pages": [
+            "bring-your-app/single-page-apps/react",
+            "bring-your-app/single-page-apps/angular",
+            "bring-your-app/single-page-apps/ember",
+            "bring-your-app/single-page-apps/vue"
+          ]
+        },
+        {
+          "group": "Use Managed Services",
+          "pages": [
+            {
+              "group": "AWS",
+              "pages": ["bring-your-app/using-manged-cloud-services/aws/s3"]
+            }
+          ]
+        },
         "bring-your-app/using-multiple-charts",
         "bring-your-app/manage-apps",
         "bring-your-app/cron-jobs"
