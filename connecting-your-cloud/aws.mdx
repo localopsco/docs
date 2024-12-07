@@ -11,16 +11,17 @@ A connection represents LocalOps's access to the target cloud account. All opera
 
 ## Pre-requisites
 
-1. AWS account.<br />
+1.  AWS account.<br />
 
-   <Tip>
-We recommend creating a brand new AWS sub-account to connect with LocalOps. This is a best practice to isolate other resources you may have in your existing AWS account. You can connect resources/services from any two AWS accounts via VPC peering when required.
+          <Tip>
 
-   If you have a pre-existing AWS Organization setup, follow [these instructions](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html) to create a new AWS sub-account. If not, sign up for a new AWS account here - [AWS Signup](https://signin.aws.amazon.com/signup?request_type=register).
+    We recommend creating a brand new AWS sub-account to connect with LocalOps. This is a best practice to isolate other resources you may have in your existing AWS account. You can connect resources/services from any two AWS accounts via VPC peering when required.
 
-   </Tip>
+    If you have a pre-existing AWS Organization setup, follow [these instructions](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html) to create a new AWS sub-account. If not, sign up for a new AWS account here - [AWS Signup](https://signin.aws.amazon.com/signup?request_type=register).
 
-2. You'll need to have console access to the target AWS cloud account with Administrator acccess. If you are connecting your client/customer's AWS account, the point of contact in your customer's end must have AWS console access with Administrator access.
+          </Tip>
+
+2.  You'll need to have console access to the target AWS cloud account with Administrator acccess. If you are connecting your client/customer's AWS account, the point of contact in your customer's end must have AWS console access with Administrator access.
 
 ## Create a new connection
 
@@ -80,7 +81,8 @@ After connecting the AWS account, please DO NOT
 
 1. Remove/modify the cloudformation stack. It holds the OIDC provider, IAM policy and IAM role to keep the cloud connection alive.
 2. Remove/modify the IAM role or policy. Again, changes here will break the connection LocalOps has with the target aws account.
-   </Warning>
+
+</Warning>
 
 ## Deleting connections
 

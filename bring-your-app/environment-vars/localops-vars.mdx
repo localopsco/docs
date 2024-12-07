@@ -1,0 +1,143 @@
+---
+title: LocalOps Variables
+---
+
+When deploying your application using LocalOps, certain Helm values are automatically passed to your application. These values can be utilized within your application to configure settings dynamically based on the deployment environment. This guide will explain how developers can consume these LocalOps passed Helm values within their applications.
+
+## Helm Values passed by LocalOps
+
+LocalOps passes the following Helm values to your application:
+
+```yaml
+localops:
+  app_release: 1.0.0
+  region: us-east-1
+  host: yourapp.customdomain.com
+  vpc_id: vpc-0b9d9ae510445316b
+  public_subnets:
+    - id: subnet-01371395ceb9c9675
+    - id: subnet-0e04a7a31b7ecdfcc
+    - id: subnet-037a70bac21c5f9e3
+  private_subnets:
+    - id: subnet-06bc4ffd44a1900e4
+    - id: subnet-003d4beba19dfe16e
+    - id: subnet-01a64fef6965ba41e
+```
+
+These values provide essential information about the environment in which your application is deployed, such as the **AWS region**, **VPC ID**, and **subnet IDs**.
+
+## Accessing LocalOps Helm Values in Your Application
+
+To access these Helm values in your application, you need to include them in your application's configuration files or environment variables. Here's how you can do this,
+
+### Using Environment Variables
+
+You can set up your Kubernetes Deployment manifest to export these Helm values as environment variables. Here's an example,
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-application
+  template:
+    metadata:
+      labels:
+        app: my-application
+    spec:
+      containers:
+        - name: my-container
+          image: my-image:1.0.1
+          env:
+            - name: APP_RELEASE
+              value: '{{ .Values.localops.app_release }}'
+            - name: AWS_REGION
+              value: '{{ .Values.localops.region }}'
+            - name: VPC_ID
+              value: '{{ .Values.localops.vpc_id }}'
+            - name: PUBLIC_SUBNETS
+              value: { { .Values.localops.public_subnets | toJson | quote } }
+            - name: PRIVATE_SUBNETS
+              value: { { .Values.localops.private_subnets | toJson | quote } }
+```
+
+In this example, the Helm values are injected as environment variables, which can then be accessed by your application code.
+
+### Accessing Helm Values in Application Code
+
+Depending on your programming language, you can access these environment variables in your application code. For example, in a **Node.js** application, you can access the environment variables as follows,
+
+```javascript
+const appRelease = process.env.APP_RELEASE;
+const awsRegion = process.env.AWS_REGION;
+const vpcId = process.env.VPC_ID;
+const publicSubnets = JSON.parse(process.env.PUBLIC_SUBNETS);
+const privateSubnets = JSON.parse(process.env.PRIVATE_SUBNETS);
+
+console.log('App Release:', appRelease);
+console.log('AWS Region:', awsRegion);
+console.log('VPC ID:', vpcId);
+console.log('Public Subnets:\n', JSON.stringify(publicSubnets, null, 2));
+console.log('Private Subnets:\n', JSON.stringify(privateSubnets, null, 2));
+```
+
+### Result:
+
+```
+LocalOps Version: 1.0.0
+AWS Region: us-east-1
+VPC ID: vpc-0b9d9ae510445316b
+Public Subnets:
+[
+  {
+    "id": "subnet-01371395ceb9c9675"
+  },
+  {
+    "id": "subnet-0e04a7a31b7ecdfcc"
+  },
+  {
+    "id": "subnet-037a70bac21c5f9e3"
+  }
+]
+Private Subnets:
+[
+  {
+    "id": "subnet-06bc4ffd44a1900e4"
+  },
+  {
+    "id": "subnet-003d4beba19dfe16e"
+  },
+  {
+    "id": "subnet-01a64fef6965ba41e"
+  }
+]
+```
+
+### Utilizing LocalOps Helm Values in Your Helm Chart
+
+You can seamlessly integrate LocalOps Helm values directly into your Helm chart configurations. For instance, when creating S3 buckets within your Helm chart, you can specify the S3 bucket region using the `localops.region` Helm value provided by LocalOps. This ensures that your S3 buckets are correctly configured based on the App Environment region.
+
+Here's a quick example of how to use the `localops.region` value in your Helm chart,
+
+```yaml
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: { { .Values.s3.bucket_name } }
+spec:
+  forProvider:
+    region: { { .Values.localops.region } } # This is a LocalOps passed Helm Value
+    forceDestory: true
+  providerConfigRef:
+    name: default
+```
+
+For detailed instructions on provisioning an S3 bucket, refer to the [Provisioning an S3 Bucket article](bring-your-app/use-cloud-services/aws/s3.md#provisioning-an-s3-bucket).
+
+## Conclusion
+
+In this article, you have learned about the Helm values provided by LocalOps and how to effectively use them within your Helm chart and application. 👌🏽

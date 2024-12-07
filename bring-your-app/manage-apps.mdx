@@ -1,0 +1,37 @@
+---
+title: Manage Apps
+description: Learn how to create/update/delete an app.
+---
+
+An app is your SaaS product. It lets you define what your service is and where its helm chart is hosted. You can provide a name for your app, helm repository url and pass any global environment variable as Helm values for it.
+
+You can create as many apps as you want.
+
+Let's see how to create,update or delete an app.
+
+### Create an app
+
+1. Click on **Apps** from the navigation pane on the left.
+2. Click on the **Add app** button located on the top-right corner of the page.
+3. Fill in your app's name and enter your Helm chart repository URL and Helm chart name.
+4. Select your registry type (Public/Amazon ECR) and provide credentials to access your registry. Your credentials are encrypted and not accessible by any personnel at LocalOps
+5. Identify the Kubernetes service you want to expose as the default entry service which will be used to access your application.
+6. Enter the **Entry Service name and port fields** with the corresponding details of the service picked in the previous step.
+7. Fill in the Health URL field which will be used by LocalOps to verify that your app is up and running.
+8. You can optionally provide helm values for configuring your app in the app creation form. These values will be applied to all subsequent deployments for this app, though they can be overridden with deployment-specific Helm values as needed.
+9. Click the **Create App** button to finalize the declaration of your app.
+
+### Update an app
+
+1. Navigate to **Apps** section using the left-hand navigation pane.
+2. Select the app that you intend to update.
+3. Click on the **Edit app settings** button to modify its settings.
+4. Modify the fields according to your preferences
+5. Then click on **Save App Settings** to apply the changes.
+
+### Delete an app
+
+1. Navigate to **Apps** section using the left-hand navigation pane.
+2. Click on the app that you wish to delete.
+3. Click on the **Delete app** button.
+4. Upon the confirmation prompt, proceed by clicking on **Continue** to delete your app

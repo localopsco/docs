@@ -1,6 +1,7 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Documentation",
+  "theme": "prism",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -18,12 +19,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@localops.co"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://console.localops.co"
   },
   "anchors": [
     {
@@ -45,32 +46,56 @@
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Bring Your App",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        {
+          "group": "First Steps",
+          "pages": [
+            "bring-your-app/first-steps/no-docker",
+            "bring-your-app/first-steps/have-docker",
+            "bring-your-app/first-steps/have-docker-compose",
+            "bring-your-app/first-steps/have-helm"
+          ]
+        },
+        {
+          "group": "Publishing Helm Chart",
+          "pages": ["bring-your-app/publish-helm-chart/ecr"]
+        },
+        {
+          "group": "Languages",
+          "pages": [
+            "bring-your-app/language/go",
+            "bring-your-app/language/python",
+            "bring-your-app/language/node"
+          ]
+        },
+        {
+          "group": "Database",
+          "pages": [
+            "bring-your-app/database/mysql",
+            "bring-your-app/database/postgres",
+            "bring-your-app/database/mongodb",
+            "bring-your-app/database/redis"
+          ]
+        },
+        "bring-your-app/database-migrations",
+        {
+          "group": "Environment Variables",
+          "pages": [
+            "bring-your-app/environment-vars/your-vars",
+            "bring-your-app/environment-vars/localops-vars"
+          ]
+        },
+        "bring-your-app/secrets",
+        "bring-your-app/using-multiple-charts",
+        "bring-your-app/manage-apps",
+        "bring-your-app/cron-jobs"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "x": "https://x.com/localopsco",
+    "github": "https://github.com/localopsco",
+    "linkedin": "https://linkedin.com/company/localops-inc"
   }
 }

@@ -1,0 +1,60 @@
+---
+title: Cron Jobs
+---
+
+Cron jobs are used to run specific operations in your app based on a schedule.
+
+You can define cron jobs within your Helm chart as a Kubernetes Job. Please use the following template and create a `cronjob.yaml` within your helm chart under `templates/` directory. Feel free to change image name and other details based on your app.
+
+In essense, this definition will run a specific docker container on the specified cron schedule.
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: '*/10 * * * *' #Cron runs every 10mins
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: hello
+              image: busybox:1.28
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+```
+
+- The schedule uses standard cron notation: `min hour day month day-of-week`.
+- Ensure the container image you use contains the commands you want to run (in the example, we use busybox which includes basic shell commands).
+
+Use `kubectl` to inspect whether your jobs are running as per schedule. To learn more, visit [Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)
+
+To use `kubectl` to inspect your app environment, see [How to use LocalOps CLI](/cli/usage).
+
+### Some relevant kubectl commands
+
+Please use these commands after you do update-kubeconfig as given here - [How to use LocalOps CLI](/cli/usage)
+
+To see all cronjobs
+
+```
+kubectl get cronjobs --all-namespaces
+```
+
+To see logs of a job
+
+```
+kubectl logs job/<JOB_NAME>
+```
+
+To see jobs spinned up by a cron job
+
+```
+kubectl get jobs -l cronjob-name=<CRONJOB_NAME> --all-namespaces
+```
